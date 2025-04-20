@@ -1,0 +1,29 @@
+<div
+  class="min-h-[calc(100vh-210px)] flex flex-col items-center justify-center h-full gap-6 bg-white text-center py-12"
+>
+  <h2 class="text-3xl font-bold text-gray-800">
+    Welcome! Choose a Page to Explore
+  </h2>
+
+  <div class="flex gap-4 mt-6">
+    <button
+      routerLink="/todos"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
+    >
+      Go To Todos
+    </button>
+    <!-- only visible admin used  -->
+    <!-- <button
+      routerLink="/users"
+      class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
+    >
+      Go To Users
+    </button> -->
+    <button
+      routerLink="/products"
+      class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
+    >
+      Go To Products
+    </button>
+  </div>
+</div>
