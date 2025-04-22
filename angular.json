@@ -9,6 +9,9 @@
         "@schematics/angular:component": {
           "style": "none",
           "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
         }
       },
       "root": "",

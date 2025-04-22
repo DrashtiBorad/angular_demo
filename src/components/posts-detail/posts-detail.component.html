@@ -1,0 +1,33 @@
+@if(!postDetails.title){
+<div class="flex justify-center items-center h-screen">
+  <p class="text-gray-500 text-lg">Posts is Loading.....</p>
+</div>
+}
+<div class="container mx-auto px-4 py-6">
+  <h1 class="text-3xl font-bold text-center text-cyan-600 mb-10">
+    📝 Post Details 📝
+  </h1>
+
+  <div class="flex flex-wrap justify-center gap-6">
+    <div
+      class="flex flex-col justify-between bg-white rounded-2xl shadow-md p-6 w-full sm:w-[45%] md:w-[30%] hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 border border-gray-100 hover:border-cyan-400"
+    >
+      <div>
+        <div>
+          <h2 class="text-xl font-semibold mb-3 text-gray-800 line-clamp-2">
+            {{ postDetails.title }}
+          </h2>
+          <p class="text-gray-600 mb-4 line-clamp-3">
+            {{ postDetails.body }}
+          </p>
+        </div>
+        <a
+          routerLink="/posts"
+          class="mt-auto mx-auto w-4/12 flex justify-center underline text-cyan-500 font-semibold py-2 px-4 rounded-lg transition duration-300"
+        >
+          PostsList
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
