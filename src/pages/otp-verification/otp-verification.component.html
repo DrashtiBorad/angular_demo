@@ -1,0 +1,81 @@
+<div
+  class="min-h-[calc(100vh-210px)] flex flex-col items-center justify-center bg-gray-100"
+>
+  <h2 class="text-xl mb-6 text-center">
+    we have sent otp on this email: {{ queryParam }}
+  </h2>
+  <div class="bg-white p-8 rounded-2xl shadow-md w-full max-w-sm">
+    <h2 class="text-2xl font-bold mb-6 text-center">Enter OTP</h2>
+
+    <form>
+      <div class="grid grid-cols-6 gap-4 mb-6">
+        <!-- OTP Fields -->
+        <div class="col-span-1">
+          <input
+            type="text"
+            maxlength="1"
+            class="w-full text-center px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="0"
+          />
+        </div>
+        <div class="col-span-1">
+          <input
+            type="text"
+            maxlength="1"
+            class="w-full text-center px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="0"
+          />
+        </div>
+        <div class="col-span-1">
+          <input
+            type="text"
+            maxlength="1"
+            class="w-full text-center px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="0"
+          />
+        </div>
+        <div class="col-span-1">
+          <input
+            type="text"
+            maxlength="1"
+            class="w-full text-center px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="0"
+          />
+        </div>
+        <div class="col-span-1">
+          <input
+            type="text"
+            maxlength="1"
+            class="w-full text-center px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="0"
+          />
+        </div>
+        <div class="col-span-1">
+          <input
+            type="text"
+            maxlength="1"
+            class="w-full text-center px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="0"
+          />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        (click)="onVerifyOtp()"
+        class="w-full bg-cyan-500 text-white py-2 rounded-md hover:bg-cyan-700 transition"
+      >
+        Verify OTP
+      </button>
+    </form>
+
+    <div class="mt-6 text-center">
+      <p class="text-sm text-gray-600">
+        Didn't receive the OTP?
+        <a href="#" class="text-cyan-500 font-medium hover:underline"
+          >Resend OTP</a
+        >
+      </p>
+    </div>
+  </div>
+</div>
