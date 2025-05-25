@@ -10,10 +10,10 @@ export class PostsService {
   constructor(private http: HttpClient) {}
 
   getPosts(): Observable<any> {
-    return this.http.get(`${environments.API_URL}/posts`);
+    return this.http.get(`${environments.JSON_API_URL}/posts`);
   }
 
   getPostsById(id: string): Observable<any> {
-    return this.http.get(`${environments.API_URL}/posts/${id}`);
+    return this.http.get(`${environments.JSON_API_URL}/posts/${id}`);
   }
 }
