@@ -17,13 +17,14 @@
     >
       Go To Posts
     </button>
-    <!-- only visible admin used  -->
-    <!-- <button
-      routerLink="/users"
+    <!-- only visible admin user  -->
+    <button
+      routerLink="/add-products"
+      *ngIf="isAdminUser"
       class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
     >
-      Go To Users
-    </button> -->
+      Add Products
+    </button>
     <button
       routerLink="/products"
       class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"

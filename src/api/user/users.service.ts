@@ -8,7 +8,7 @@ import { LoginPayload } from './types';
 })
 export class UsersService {
   constructor(private http: HttpClient) {}
-
+ 
   loginUser(payload: LoginPayload) {
     return this.http.post(`${environments.DATA_API_URL}/login`, payload);
   }
@@ -19,5 +19,9 @@ export class UsersService {
 
   sendOtp(payload: { email: string }) {
     return this.http.post(`${environments.DATA_API_URL}/sendOtp`, payload);
+  }
+
+  otpVerification(payload: { email: string; otp: number }) {
+    return this.http.post(`${environments.DATA_API_URL}/otp-verify`, payload);
   }
 }

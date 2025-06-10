@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { UsersService } from '../../api/user/users.service';
 import { LoginPayload } from '../../api/user/types';
 import { NgIf } from '@angular/common';
+import { UserStoreService } from '../../store/user-store.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,7 +14,11 @@ import { NgIf } from '@angular/common';
 export class SignInComponent {
   showPassword = false;
   errorMessage: string | null = null;
-  constructor(private userServise: UsersService, private router: Router) {}
+  constructor(
+    private userServise: UsersService,
+    private router: Router,
+    private userStore: UserStoreService
+  ) {}
 
   signInForm = new FormGroup({
     email: new FormControl(''),
@@ -29,7 +34,7 @@ export class SignInComponent {
 
       this.userServise.loginUser(payload as LoginPayload).subscribe({
         next: (data) => {
-          console.log('Login successful:', data);
+          this.userStore.setUser(data);
           this.signInForm.reset();
           this.router.navigate(['/']);
         },

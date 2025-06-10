@@ -4,9 +4,13 @@
   >
     <a class="text-2xl font-bold" routerLink="/">Angular Demo</a>
     <div class="flex flex-col items-center">
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2 cursor-pointer" *ngIf="!currentUser">
         <h1>Don't have an account? <a routerLink="/signUp">Sign Up</a></h1>
         <h1>Already have an account? <a routerLink="/signIn"> Sign In</a></h1>
+      </div>
+      <div class="" *ngIf="currentUser">
+        <h1>Welcome, {{ currentUser[0].name }}</h1>
+        <a class="cursor-pointer" (click)="onLogOut()">Sign out</a>
       </div>
       <!-- <a routerLink="profile">
         <img src="profileLogo.svg" alt="Logo" class="h-12 w-auto" />
