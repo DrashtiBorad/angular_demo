@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { PostsService } from '../../api/posts/posts.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-posts',
-  imports: [NgFor, RouterModule],
+  imports: [NgFor, NgIf, RouterModule, LoadingComponent],
   templateUrl: './posts.component.html',
 })
 export class PostsComponent {

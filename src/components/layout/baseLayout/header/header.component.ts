@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UserStoreService } from '../../../../store/user-store.service';
-import { NgIf } from '@angular/common';
+import { NgIf, NgFor, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterModule, NgIf],
+  imports: [RouterModule, NgIf, NgFor, CommonModule],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
@@ -20,4 +20,23 @@ export class HeaderComponent {
   onLogOut() {
     this.userService.clearUser();
   }
+
+  showCartSidebar = false;
+  cartProducts: any[] = [];
+  cartCount = 0;
+
+  toggleCartSidebar() {
+    this.showCartSidebar = !this.showCartSidebar;
+  }
+
+  removeFromCart(item: any) {
+    this.cartProducts = this.cartProducts.filter((p) => p !== item);
+    this.cartCount = this.cartProducts.length;
+  }
+
+  // // Example: Add to cart method (to be called from product page)
+  // addToCart(product: any) {
+  //   this.cartProducts.push(product);
+  //   this.cartCount = this.cartProducts.length;
+  // }
 }

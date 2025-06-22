@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+
+@keyframes spin-right {
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes spin-left {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(720deg);
+    }
+}
+
+.animate-spin-right {
+    animation: spin-right 800ms linear infinite;
+}
+
+.animate-spin-left {
+    animation: spin-left 800ms linear infinite;
+}

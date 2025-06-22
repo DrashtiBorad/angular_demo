@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { UsersService } from '../../api/user/users.service';
 import { LoginPayload } from '../../api/user/types';
 import { NgIf } from '@angular/common';
 import { UserStoreService } from '../../store/user-store.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,18 +20,21 @@ import { UserStoreService } from '../../store/user-store.service';
 export class SignInComponent {
   showPassword = false;
   errorMessage: string | null = null;
+  submitted = false;
   constructor(
     private userServise: UsersService,
     private router: Router,
-    private userStore: UserStoreService
+    private userStore: UserStoreService,
+    private toastr: ToastrService
   ) {}
 
   signInForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
   });
 
   onSubmit() {
+    this.submitted = true;
     if (this.signInForm.valid) {
       const payload = {
         email: this.signInForm.value.email || '',

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UserStoreService } from '../../store/user-store.service';
 import { NgIf } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,10 @@ import { NgIf } from '@angular/common';
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
-  constructor(private userStore: UserStoreService) {}
+  constructor(
+    private userStore: UserStoreService,
+    private toastr: ToastrService
+  ) {}
   count: number = 0;
   private intervalId: any;
   isAdminUser: boolean = false;

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from '../pages/home/home.component';
 import { PostsComponent } from '../pages/posts/posts.component';
-import { AddProductComponent } from '../pages/addProducts/addProducts.component';
+import { AddProductComponent } from '../pages/admin/products/products.component';
 import { ProductsComponent } from '../pages/products/products.component';
 import { ProfileComponent } from '../pages/profile/profile.component';
 import { PostsDetailComponent } from '../components/posts-detail/posts-detail.component';
@@ -12,20 +12,38 @@ import { OtpVerificationComponent } from '../pages/otp-verification/otp-verifica
 import { ResetPasswordComponent } from '../pages/reset-password/reset-password.component';
 import { inject } from '@angular/core';
 import { UserStoreService } from '../store/user-store.service';
+import { AddProductsComponent } from '../pages/admin/add-products/add-products.component';
+import { AuthGuard } from '../guard/auth.guard';
+import { AdminGuard } from '../guard/admin.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'posts', component: PostsComponent },
-  { path: 'add-products', component: AddProductComponent },
+  { path: 'posts', component: PostsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'add-products',
+    component: AddProductComponent,
+    canActivate: [AdminGuard],
+  },
   {
     path: 'products',
     component: ProductsComponent,
+    canActivate: [AuthGuard],
   },
   { path: 'signIn', component: SignInComponent },
   { path: 'signUp', component: SignUpComponent },
   { path: 'otp-verification', component: OtpVerificationComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'posts-detail/:id', component: PostsDetailComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  {
+    path: 'posts-detail/:id',
+    component: PostsDetailComponent,
+    canActivate: [AuthGuard],
+  },
+
+  {
+    path: 'admin-add-products',
+    component: AddProductsComponent,
+    canActivate: [AdminGuard],
+  },
 ];

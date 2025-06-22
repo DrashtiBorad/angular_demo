@@ -1,21 +1,23 @@
+import { CommonModule, CurrencyPipe, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
-import { UsersService } from '../../api/user/users.service';
-import { ProductsService } from '../../api/products/products.service';
-import { CommonModule } from '@angular/common';
-import { LoadingComponent } from '../../components/loading/loading.component';
+import { FormsModule } from '@angular/forms';
+import { ProductsService } from '../../../api/products/products.service';
+import { RouterModule } from '@angular/router';
+import { LoadingComponent } from '../../../components/loading/loading.component';
 
 interface Product {
   name: string;
   image: string;
-  price: number;
+  price: string;
   description: string;
 }
+
 @Component({
-  selector: 'app-products',
-  imports: [CommonModule, LoadingComponent],
+  selector: 'app-addProducts',
+  imports: [NgFor, CommonModule, FormsModule, RouterModule, LoadingComponent  ],
   templateUrl: './products.component.html',
 })
-export class ProductsComponent {
+export class AddProductComponent {
   constructor(private productService: ProductsService) {}
 
   products: Product[] = [];
