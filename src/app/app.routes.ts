@@ -46,4 +46,9 @@ export const routes: Routes = [
     component: AddProductsComponent,
     canActivate: [AdminGuard],
   },
+  {
+    path: 'admin-edit-products/:id',
+    component: AddProductsComponent,
+    canActivate: [AdminGuard],
+  },
 ];

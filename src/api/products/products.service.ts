@@ -26,4 +26,23 @@ export class ProductsService {
   addProducts(payload: FormData): Observable<any> {
     return this.http.post(`${environments.DATA_API_URL}/add-products`, payload);
   }
+
+  getProductById(id: string): Observable<any> {
+    return this.http.get(`${environments.DATA_API_URL}/get-productById/${id}`);
+  }
+
+  getCategories(): Observable<any> {
+    return this.http.get(`${environments.DATA_API_URL}/get-categories`);
+  }
+
+  updateProduct(id: string, payload: FormData): Observable<AddProductPayload> {
+    return this.http.put<AddProductPayload>(
+      `${environments.DATA_API_URL}/update-products/${id}`,
+      payload
+    );
+  }
+
+  deleteProduct(id: string): Observable<any> {
+    return this.http.delete(`${environments.DATA_API_URL}/delete-products/${id}`);
+  }
 }

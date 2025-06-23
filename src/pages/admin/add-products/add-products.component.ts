@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormControl,
@@ -7,18 +7,23 @@ import {
   Validators,
 } from '@angular/forms';
 import { ProductsService } from '../../../api/products/products.service';
-import { Route, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
+type categories = {
+  id: string;
+  categories_name: string;
+};
 @Component({
   selector: 'app-add-products',
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, NgFor],
   templateUrl: './add-products.component.html',
 })
 export class AddProductsComponent {
   constructor(
     private productService: ProductsService,
     private route: Router,
+    private router: ActivatedRoute,
     private toastr: ToastrService
   ) {}
 
@@ -26,6 +31,9 @@ export class AddProductsComponent {
   showPreview = false;
   selectedFile: File | null = null;
   submitted = false;
+  categories: categories[] = [];
+  isEditMode = false;
+  productId: string | null = null;
 
   adminAddProductForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -36,6 +44,49 @@ export class AddProductsComponent {
     is_top_categories: new FormControl(false),
     categories_name: new FormControl('', Validators.required),
   });
+
+  ngOnInit() {
+    if (this.router.snapshot.paramMap.get('id')) {
+      this.isEditMode = true;
+    }
+
+    this.productId = this.router.snapshot.paramMap.get('id');
+    this.productService.getCategories().subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          this.categories = data;
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching categories:', error);
+      },
+    });
+
+    if (this.isEditMode) {
+      this.productService.getProductById(this.productId || '').subscribe({
+        next: (product) => {
+          console.log(
+            'Product fetched by ID:',
+            product,
+            product.our_productType_categoriesId
+          );
+          this.adminAddProductForm.patchValue({
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            is_featured_product: product.is_featured_product,
+            is_top_categories: product.is_top_categories,
+            categories_name: product.our_productType_category.categories_name,
+          });
+
+          this.previewUrl = product.image;
+        },
+        error: (error) => {
+          console.error('Error fetching product by ID:', error);
+        },
+      });
+    }
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -65,18 +116,33 @@ export class AddProductsComponent {
       formData.append('image', this.selectedFile, this.selectedFile.name);
     }
 
-    this.productService.addProducts(formData).subscribe({
-      next: (data) => {
-        this.toastr.success('Product added successfully');
-        this.adminAddProductForm.reset();
-        this.previewUrl = null;
-        this.showPreview = false;
-        this.route.navigate(['/add-products']);
-      },
-      error: (error) => {
-        console.error('Error adding product:', error);
-      },
-    });
+    if (this.productId) {
+      this.productService.updateProduct(this.productId, formData).subscribe({
+        next: () => {
+          this.toastr.success('Product updated successfully');
+          this.adminAddProductForm.reset();
+          this.previewUrl = null;
+          this.showPreview = false;
+          this.route.navigate(['/add-products']);
+        },
+        error: (error) => {
+          console.error('Error updating product:', error);
+        },
+      });
+    } else {
+      this.productService.addProducts(formData).subscribe({
+        next: () => {
+          this.toastr.success('Product added successfully');
+          this.adminAddProductForm.reset();
+          this.previewUrl = null;
+          this.showPreview = false;
+          this.route.navigate(['/add-products']);
+        },
+        error: (error) => {
+          console.error('Error adding product:', error);
+        },
+      });
+    }
   }
 
   onImageSelected(event: Event): void {
